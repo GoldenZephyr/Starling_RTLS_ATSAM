@@ -2,6 +2,7 @@
 #include <asf.h>
 #include "conf_clock.h"
 #include "conf_board.h"
+#include "conf_usb.h"
 
 int main (void)
 {
@@ -9,6 +10,11 @@ int main (void)
 	SystemInit();
 	board_init();
 	sysclk_init();
+
+	irq_initialize_vectors();
+	cpu_irq_enable();
+
+	udc_start();
 	
 	/* Insert application code here, after the board has been initialized. */
 	while(1) {

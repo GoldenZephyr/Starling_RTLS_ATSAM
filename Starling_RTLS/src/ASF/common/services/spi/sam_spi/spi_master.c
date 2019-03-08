@@ -121,7 +121,7 @@ void spi_master_setup_device(Spi *p_spi, struct spi_device *device,
 	spi_set_bits_per_transfer(p_spi, device->id,
 			CONFIG_SPI_MASTER_BITS_PER_TRANSFER);
 	spi_set_baudrate_div(p_spi, device->id, baud_div);
-	spi_configure_cs_behavior(p_spi, device->id, SPI_CS_KEEP_LOW);
+	spi_configure_cs_behavior(p_spi, device->id, SPI_CS_RISE_NO_TX);
 	spi_set_clock_polarity(p_spi, device->id, flags >> 1);
 	spi_set_clock_phase(p_spi, device->id, ((flags & 0x1) ^ 0x1));
 }

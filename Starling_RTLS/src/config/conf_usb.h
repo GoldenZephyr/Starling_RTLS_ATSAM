@@ -12,15 +12,15 @@
 //! Device definition (mandatory)
 #define  USB_DEVICE_VENDOR_ID             USB_VID_ATMEL
 #define  USB_DEVICE_PRODUCT_ID            USB_PID_ATMEL_ASF_HIDGENERIC
-#define  USB_DEVICE_MAJOR_VERSION         1
+#define  USB_DEVICE_MAJOR_VERSION         2
 #define  USB_DEVICE_MINOR_VERSION         0
 #define  USB_DEVICE_POWER                 100 // Consumption on Vbus line (mA)
 #define  USB_DEVICE_ATTR                  USB_CONFIG_ATTR_BUS_POWERED
 // this flag was previously ORed with USB_DEVICE_ATTR: USB_CONFIG_ATTR_REMOTE_WAKEUP
 
 //! USB Device string definitions (Optional)
-#define  USB_DEVICE_MANUFACTURE_NAME      "AaronRay"
-#define  USB_DEVICE_PRODUCT_NAME          "Starling RTLS"
+#define  USB_DEVICE_MANUFACTURE_NAME      "ATMEL ASF"
+#define  USB_DEVICE_PRODUCT_NAME          "HID Generic"
 // #define  USB_DEVICE_SERIAL_NAME           "12...EF"
 
 

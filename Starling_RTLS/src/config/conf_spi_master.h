@@ -1,4 +1,4 @@
-// conf_spi_master.h
+ // conf_spi_master.h
 #ifndef CONF_SPI_MASTER_H_INCLUDED
 #define CONF_SPI_MASTER_H_INCLUDED
 

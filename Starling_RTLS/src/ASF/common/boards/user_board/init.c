@@ -24,8 +24,8 @@ void board_init(void)
 	ioport_set_pin_dir(LEDG, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_dir(LEDR, IOPORT_DIR_OUTPUT);
 
-	gpio_configure_pin(SPI_MISO_GPIO,SPI_MISO_FLAGS);
-	gpio_configure_pin(SPI_MOSI_GPIO,SPI_MOSI_FLAGS);
-	gpio_configure_pin(SPI_SPCK_GPIO,SPI_SPCK_FLAGS);
-	gpio_configure_pin(SPI_NPCS0_GPIO,SPI_NPCS0_FLAGS);
+// 	gpio_configure_pin(SPI_MISO_GPIO,SPI_MISO_FLAGS);
+// 	gpio_configure_pin(SPI_MOSI_GPIO,SPI_MOSI_FLAGS);
+// 	gpio_configure_pin(SPI_SPCK_GPIO,SPI_SPCK_FLAGS);
+// 	gpio_configure_pin(SPI_NPCS0_GPIO,SPI_NPCS0_FLAGS);
 }

@@ -97,6 +97,7 @@ SUBDIRS :=  \
 C_SRCS +=  \
 ../src/ASF/common/services/spi/sam_spi/spi_master.c \
 ../src/ASF/sam/drivers/spi/spi.c \
+../src/spi_init_starling.c \
 ../src/ASF/common/services/delay/sam/cycle_counter.c \
 ../src/ASF/common/services/clock/sam4s/sysclk.c \
 ../src/ASF/common/services/sleepmgr/sam/sleepmgr.c \
@@ -128,6 +129,7 @@ ASM_SRCS +=
 OBJS +=  \
 src/ASF/common/services/spi/sam_spi/spi_master.o \
 src/ASF/sam/drivers/spi/spi.o \
+src/spi_init_starling.o \
 src/ASF/common/services/delay/sam/cycle_counter.o \
 src/ASF/common/services/clock/sam4s/sysclk.o \
 src/ASF/common/services/sleepmgr/sam/sleepmgr.o \
@@ -152,6 +154,7 @@ src/main.o
 OBJS_AS_ARGS +=  \
 src/ASF/common/services/spi/sam_spi/spi_master.o \
 src/ASF/sam/drivers/spi/spi.o \
+src/spi_init_starling.o \
 src/ASF/common/services/delay/sam/cycle_counter.o \
 src/ASF/common/services/clock/sam4s/sysclk.o \
 src/ASF/common/services/sleepmgr/sam/sleepmgr.o \
@@ -176,6 +179,7 @@ src/main.o
 C_DEPS +=  \
 src/ASF/common/services/spi/sam_spi/spi_master.d \
 src/ASF/sam/drivers/spi/spi.d \
+src/spi_init_starling.d \
 src/ASF/common/services/delay/sam/cycle_counter.d \
 src/ASF/common/services/clock/sam4s/sysclk.d \
 src/ASF/common/services/sleepmgr/sam/sleepmgr.d \
@@ -200,6 +204,7 @@ src/main.d
 C_DEPS_AS_ARGS +=  \
 src/ASF/common/services/spi/sam_spi/spi_master.d \
 src/ASF/sam/drivers/spi/spi.d \
+src/spi_init_starling.d \
 src/ASF/common/services/delay/sam/cycle_counter.d \
 src/ASF/common/services/clock/sam4s/sysclk.d \
 src/ASF/common/services/sleepmgr/sam/sleepmgr.d \
@@ -281,6 +286,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 
+
+
 src/ASF/common/services/spi/sam_spi/%.o: ../src/ASF/common/services/spi/sam_spi/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 5.3.1
@@ -289,6 +296,13 @@ src/ASF/common/services/spi/sam_spi/%.o: ../src/ASF/common/services/spi/sam_spi/
 	
 
 src/ASF/sam/drivers/spi/%.o: ../src/ASF/sam/drivers/spi/%.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 5.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM4S2A__ -DDEBUG -Dscanf=iscanf -DBOARD=USER_BOARD -DARM_MATH_CM4=true -Dprintf=iprintf -DUDD_ENABLE  -I"../src/ASF/common/boards" -I"../src/ASF/sam/utils" -I"../src/ASF/sam/utils/header_files" -I"../src/ASF/sam/utils/preprocessor" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/common/utils" -I"../src/ASF/sam/utils/cmsis/sam4s/include" -I"../src/ASF/common/boards/user_board" -I"../src" -I"../src/config" -I"../src/ASF/sam/drivers/pmc" -I"../src/ASF/common/services/clock" -I"../src/ASF/common/services/ioport" -I"../src/ASF/common/services/delay" -I"../src/ASF/sam/drivers/matrix" -I"../src/ASF/sam/drivers/pio" -I"../src/ASF/common/services/sleepmgr" -I"../src/ASF/common/services/usb" -I"../src/ASF/common/services/usb/class/hid" -I"../src/ASF/common/services/usb/class/hid/device" -I"../src/ASF/common/services/usb/class/hid/device/generic" -I"../src/ASF/common/services/usb/udc" -I"../src/ASF/sam/drivers/udp" -I"../src/ASF/common/services/spi/sam_spi" -I"../src/ASF/common/services/spi" -I"../src/ASF/sam/drivers/spi" -I"../src/ASF/common/services/gpio"  -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m4 -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+src/%.o: ../src/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 5.3.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM4S2A__ -DDEBUG -Dscanf=iscanf -DBOARD=USER_BOARD -DARM_MATH_CM4=true -Dprintf=iprintf -DUDD_ENABLE  -I"../src/ASF/common/boards" -I"../src/ASF/sam/utils" -I"../src/ASF/sam/utils/header_files" -I"../src/ASF/sam/utils/preprocessor" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/common/utils" -I"../src/ASF/sam/utils/cmsis/sam4s/include" -I"../src/ASF/common/boards/user_board" -I"../src" -I"../src/config" -I"../src/ASF/sam/drivers/pmc" -I"../src/ASF/common/services/clock" -I"../src/ASF/common/services/ioport" -I"../src/ASF/common/services/delay" -I"../src/ASF/sam/drivers/matrix" -I"../src/ASF/sam/drivers/pio" -I"../src/ASF/common/services/sleepmgr" -I"../src/ASF/common/services/usb" -I"../src/ASF/common/services/usb/class/hid" -I"../src/ASF/common/services/usb/class/hid/device" -I"../src/ASF/common/services/usb/class/hid/device/generic" -I"../src/ASF/common/services/usb/udc" -I"../src/ASF/sam/drivers/udp" -I"../src/ASF/common/services/spi/sam_spi" -I"../src/ASF/common/services/spi" -I"../src/ASF/sam/drivers/spi" -I"../src/ASF/common/services/gpio"  -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m4 -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -394,13 +408,6 @@ src/ASF/sam/utils/cmsis/sam4s/source/templates/%.o: ../src/ASF/sam/utils/cmsis/s
 	
 
 src/ASF/sam/utils/syscalls/gcc/%.o: ../src/ASF/sam/utils/syscalls/gcc/%.c
-	@echo Building file: $<
-	@echo Invoking: ARM/GNU C Compiler : 5.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM4S2A__ -DDEBUG -Dscanf=iscanf -DBOARD=USER_BOARD -DARM_MATH_CM4=true -Dprintf=iprintf -DUDD_ENABLE  -I"../src/ASF/common/boards" -I"../src/ASF/sam/utils" -I"../src/ASF/sam/utils/header_files" -I"../src/ASF/sam/utils/preprocessor" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/common/utils" -I"../src/ASF/sam/utils/cmsis/sam4s/include" -I"../src/ASF/common/boards/user_board" -I"../src" -I"../src/config" -I"../src/ASF/sam/drivers/pmc" -I"../src/ASF/common/services/clock" -I"../src/ASF/common/services/ioport" -I"../src/ASF/common/services/delay" -I"../src/ASF/sam/drivers/matrix" -I"../src/ASF/sam/drivers/pio" -I"../src/ASF/common/services/sleepmgr" -I"../src/ASF/common/services/usb" -I"../src/ASF/common/services/usb/class/hid" -I"../src/ASF/common/services/usb/class/hid/device" -I"../src/ASF/common/services/usb/class/hid/device/generic" -I"../src/ASF/common/services/usb/udc" -I"../src/ASF/sam/drivers/udp" -I"../src/ASF/common/services/spi/sam_spi" -I"../src/ASF/common/services/spi" -I"../src/ASF/sam/drivers/spi" -I"../src/ASF/common/services/gpio"  -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m4 -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-src/%.o: ../src/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 5.3.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM4S2A__ -DDEBUG -Dscanf=iscanf -DBOARD=USER_BOARD -DARM_MATH_CM4=true -Dprintf=iprintf -DUDD_ENABLE  -I"../src/ASF/common/boards" -I"../src/ASF/sam/utils" -I"../src/ASF/sam/utils/header_files" -I"../src/ASF/sam/utils/preprocessor" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/common/utils" -I"../src/ASF/sam/utils/cmsis/sam4s/include" -I"../src/ASF/common/boards/user_board" -I"../src" -I"../src/config" -I"../src/ASF/sam/drivers/pmc" -I"../src/ASF/common/services/clock" -I"../src/ASF/common/services/ioport" -I"../src/ASF/common/services/delay" -I"../src/ASF/sam/drivers/matrix" -I"../src/ASF/sam/drivers/pio" -I"../src/ASF/common/services/sleepmgr" -I"../src/ASF/common/services/usb" -I"../src/ASF/common/services/usb/class/hid" -I"../src/ASF/common/services/usb/class/hid/device" -I"../src/ASF/common/services/usb/class/hid/device/generic" -I"../src/ASF/common/services/usb/udc" -I"../src/ASF/sam/drivers/udp" -I"../src/ASF/common/services/spi/sam_spi" -I"../src/ASF/common/services/spi" -I"../src/ASF/sam/drivers/spi" -I"../src/ASF/common/services/gpio"  -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m4 -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

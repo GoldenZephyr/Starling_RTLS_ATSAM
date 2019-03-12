@@ -3,28 +3,12 @@
 #include "conf_clock.h"
 #include "conf_board.h"
 #include "conf_usb.h"
-#include "conf_spi_master.h"
+//#include "conf_spi_master.h"
+#include "spi_init_starling.h"
 
 extern volatile bool new_usb_cmd;
 extern volatile uint8_t rp_mod[UDI_HID_REPORT_OUT_SIZE];
 
-//Paramteres:
-//  data: data to be sent
-//  last_byte: either 0 or 1. 
-//   0-There are following bytes to be sent. The following bytes and the current byte composes one data-unit, CS should be kept low after sending out the current byte
-//   1-Last byte of a data unit. CS will be set to HIGH when the current byte has been sent out.
-void spi_tx(uint8_t data,uint8_t last_byte)
-{
- spi_write(SPI,data,0,last_byte);
- while ((spi_read_status(SPI) & SPI_SR_RDRF) == 0);/* Wait transfer done. */
-}
- 
-uint8_t spi_rx(void)
-{
- uint8_t tmp;
- spi_read (SPI,&tmp,0);
- return tmp;
-}
 
 int main (void)
 {
@@ -33,14 +17,16 @@ int main (void)
 	SystemInit();
 	board_init();
 	sysclk_init();
+	spi_init();
 
-	spi_master_init(SPI);
-	struct spi_device spi_dev;
-	spi_dev.id = 0; //Chip Select 0
+
+	//spi_master_init(SPI);
+	//struct spi_device spi_dev;
+	//spi_dev.id = 0; //Chip Select 0
 
 	uint32_t spi_baud_rate = 2000000; // 1Mhz for now?
-	spi_master_setup_device(SPI, &spi_dev,SPI_MODE_0, spi_baud_rate, 0);
-	spi_enable(SPI);
+	//spi_master_setup_device(SPI, &spi_dev,SPI_MODE_0, spi_baud_rate, 0);
+	//spi_enable(SPI);
 	//SPI_MODE 0 is CPOL=0, CPHA=0
 	// the last argument is unused by spi_master_setup_device
 
@@ -70,14 +56,34 @@ int main (void)
 			}
 		}
 
-		spi_select_device(SPI, &spi_dev);
-		const unsigned char* msg_cmd = "\0";
-		unsigned char recv_buf[4];
-		//spi_write(SPI, msg_cmd, )
-		spi_write_packet(SPI, msg_cmd, 1);
-		spi_read_packet(SPI, recv_buf, 4);
-		spi_deselect_device(SPI, &spi_dev);
-		//delay_ms(1000);
+// 		spi_select_device(SPI, &spi_dev);
+ 		//const unsigned char* msg_cmd = "\0";
+ 		uint8_t recv_buf[4];
+		uint8_t tosend = 0;
+		spi_tx(tosend,0);
+		uint8_t tmp = 0;
+
+		spi_tx(tosend,0);
+		tmp = spi_rx();
+		recv_buf[0] = tmp;
+
+		spi_tx(tosend,0);
+		tmp = spi_rx();
+		recv_buf[1] = tmp;
+
+		spi_tx(tosend,0);
+		tmp = spi_rx();
+		recv_buf[2] = tmp;
+
+		spi_tx(tosend,1);
+		tmp = spi_rx();
+		recv_buf[3] = tmp;
+		delay_ms(1000);
+
+// 		//spi_write(SPI, msg_cmd, )
+// 		spi_write_packet(SPI, msg_cmd, 1);
+// 		spi_read_packet(SPI, recv_buf, 4);
+// 		spi_deselect_device(SPI, &spi_dev);
 	}
 
 	// Based on looking at the sample SPI code and documentation, 

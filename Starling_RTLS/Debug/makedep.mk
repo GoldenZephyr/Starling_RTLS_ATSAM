@@ -6,6 +6,8 @@ src\ASF\common\services\spi\sam_spi\spi_master.c
 
 src\ASF\sam\drivers\spi\spi.c
 
+src\spi_init_starling.c
+
 src\ASF\common\services\delay\sam\cycle_counter.c
 
 src\ASF\common\services\clock\sam4s\sysclk.c

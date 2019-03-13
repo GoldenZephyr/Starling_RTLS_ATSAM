@@ -60,25 +60,31 @@ int main (void)
  		//const unsigned char* msg_cmd = "\0";
  		uint8_t recv_buf[4];
 		uint8_t tosend = 0;
-		spi_tx(tosend,0);
-		uint8_t tmp = 0;
+		uint8_t tmp1 = 0;
+		uint8_t tmp2 = 0;
+		uint8_t tmp3 = 0;
+		uint8_t tmp4 = 0;
+		uint8_t tmp5 = 0;
 
 		spi_tx(tosend,0);
-		tmp = spi_rx();
-		recv_buf[0] = tmp;
+		tmp1 = spi_rx();
+
 
 		spi_tx(tosend,0);
-		tmp = spi_rx();
-		recv_buf[1] = tmp;
+		tmp2 = spi_rx();
+		recv_buf[0] = tmp2 >> 1;
 
 		spi_tx(tosend,0);
-		tmp = spi_rx();
-		recv_buf[2] = tmp;
+		tmp3 = spi_rx();
+		recv_buf[1] = tmp3 >> 1;
+
+		spi_tx(tosend,0);
+		tmp4 = spi_rx();
+		recv_buf[2] = tmp4 >> 1;
 
 		spi_tx(tosend,1);
-		tmp = spi_rx();
-		recv_buf[3] = tmp;
-		delay_ms(1000);
+		tmp5 = spi_rx();
+		recv_buf[3] = tmp5 >> 1;
 
 // 		//spi_write(SPI, msg_cmd, )
 // 		spi_write_packet(SPI, msg_cmd, 1);

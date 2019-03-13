@@ -20,14 +20,17 @@
 #define SPI_CLK_POLARITY 0
 
 /* Clock phase. */
-#define SPI_CLK_PHASE 0
+#define SPI_CLK_PHASE 1
 
-/* Delay before SPCK. */
+/* Delay before SPCK. */ // This must be at least 16 ns
 //#define SPI_DLYBS 0x40
-#define SPI_DLYBS 0xFF
+#define SPI_DLYBS 0x20
+//#define SPI_DLYBS 0x0A // 10 clock cycles, ~80 ns
 
-/* Delay between consecutive transfers. */
-#define SPI_DLYBCT 0x10
+
+
+/* Delay between consecutive transfers. */ // This must be at least 32 ns
+#define SPI_DLYBCT 0x10 // 16 clock cycles, ~120ns
 /* SPI clock setting (Hz). */
 static uint32_t gs_ul_spi_clock = 2000000;
 
@@ -64,7 +67,7 @@ void spi_init(void)
 	spi_set_master_mode(SPI_MASTER_BASE);
 	spi_disable_mode_fault_detect(SPI_MASTER_BASE);
 	spi_set_peripheral_chip_select_value(SPI_MASTER_BASE, 0);
-	spi_configure_cs_behavior(SPI, 1, SPI_CS_RISE_NO_TX);
+	spi_configure_cs_behavior(SPI, 0, SPI_CS_RISE_NO_TX);
 	spi_set_clock_polarity(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_CLK_POLARITY);
 	spi_set_clock_phase(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_CLK_PHASE);
 	spi_set_bits_per_transfer(SPI_MASTER_BASE, SPI_CHIP_SEL,
@@ -72,4 +75,5 @@ void spi_init(void)
 	spi_set_baudrate_div(SPI_MASTER_BASE, SPI_CHIP_SEL,(sysclk_get_cpu_hz() / gs_ul_spi_clock));
 	spi_set_transfer_delay(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_DLYBS,SPI_DLYBCT);
 	spi_enable(SPI_MASTER_BASE);
+
 }

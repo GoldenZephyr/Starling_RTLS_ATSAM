@@ -17,7 +17,7 @@ int main (void)
 	SystemInit();
 	board_init();
 	sysclk_init();
-	spi_init();
+	//spi_init();
 
 
 	//spi_master_init(SPI);
@@ -56,35 +56,47 @@ int main (void)
 			}
 		}
 
+		uint8_t send_buf[5] = {0};
+		uint8_t recv_buf[5] = {0};
+		uint8_t n_bytes = 5;
+
+		spi_write_msg(send_buf, recv_buf, n_bytes);
+		uint8_t recv1 = recv_buf[0];
+		uint8_t recv2 = recv_buf[1];
+		uint8_t recv3 = recv_buf[2];
+		uint8_t recv4 = recv_buf[3];
+		uint8_t recv5 = recv_buf[4];
+
+
 // 		spi_select_device(SPI, &spi_dev);
  		//const unsigned char* msg_cmd = "\0";
- 		uint8_t recv_buf[4];
-		uint8_t tosend = 0;
-		uint8_t tmp1 = 0;
-		uint8_t tmp2 = 0;
-		uint8_t tmp3 = 0;
-		uint8_t tmp4 = 0;
-		uint8_t tmp5 = 0;
-
-		spi_tx(tosend,0);
-		tmp1 = spi_rx();
-
-
-		spi_tx(tosend,0);
-		tmp2 = spi_rx();
-		recv_buf[0] = tmp2 >> 1;
-
-		spi_tx(tosend,0);
-		tmp3 = spi_rx();
-		recv_buf[1] = tmp3 >> 1;
-
-		spi_tx(tosend,0);
-		tmp4 = spi_rx();
-		recv_buf[2] = tmp4 >> 1;
-
-		spi_tx(tosend,1);
-		tmp5 = spi_rx();
-		recv_buf[3] = tmp5 >> 1;
+//  		uint8_t recv_buf[4];
+// 		uint8_t tosend = 0;
+// 		uint8_t tmp1 = 0;
+// 		uint8_t tmp2 = 0;
+// 		uint8_t tmp3 = 0;
+// 		uint8_t tmp4 = 0;
+// 		uint8_t tmp5 = 0;
+// 
+// 		spi_tx(tosend,0);
+// 		tmp1 = spi_rx();
+// 
+// 
+// 		spi_tx(tosend,0);
+// 		tmp2 = spi_rx();
+// 		recv_buf[0] = tmp2;
+// 
+// 		spi_tx(tosend,0);
+// 		tmp3 = spi_rx();
+// 		recv_buf[1] = tmp3;
+// 
+// 		spi_tx(tosend,0);
+// 		tmp4 = spi_rx();
+// 		recv_buf[2] = tmp4;
+// 
+// 		spi_tx(tosend,1);
+// 		tmp5 = spi_rx();
+// 		recv_buf[3] = tmp5;
 
 // 		//spi_write(SPI, msg_cmd, )
 // 		spi_write_packet(SPI, msg_cmd, 1);

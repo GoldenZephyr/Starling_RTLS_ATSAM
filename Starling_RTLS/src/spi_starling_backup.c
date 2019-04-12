@@ -1,4 +1,4 @@
-#include "spi_init_starling.h"
+#include "spi_starling.h"
 #include "pio.h"
 #include "spi.h"
 #include "sysclk.h"
@@ -32,15 +32,9 @@ uint8_t spi_write_byte(uint8_t data){
 		if (ioport_get_pin_level(SPI_MISO)){
 			msg_rcv += 1;
 		}
-//		ioport_set_pin_level(TP1, true);
-// 		uint8_t wait_var;
-// 		for(wait_var=0; wait_var < 200; wait_var++){
-// 			asm("nop");
-// 		}
 		ioport_set_pin_level(SPI_CLK,true);
 		delay_us(DELAYUS_CLK_HALF_PRD);
 		ioport_set_pin_level(SPI_CLK, false);
-//		ioport_set_pin_level(TP1, false);
 	}
 
 	return msg_rcv;

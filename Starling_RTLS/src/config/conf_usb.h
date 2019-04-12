@@ -14,7 +14,7 @@
 #define  USB_DEVICE_PRODUCT_ID            USB_PID_ATMEL_ASF_HIDGENERIC
 #define  USB_DEVICE_MAJOR_VERSION         2
 #define  USB_DEVICE_MINOR_VERSION         0
-#define  USB_DEVICE_POWER                 100 // Consumption on Vbus line (mA)
+#define  USB_DEVICE_POWER                 200 // Consumption on Vbus line (mA)
 #define  USB_DEVICE_ATTR                  USB_CONFIG_ATTR_BUS_POWERED
 // this flag was previously ORed with USB_DEVICE_ATTR: USB_CONFIG_ATTR_REMOTE_WAKEUP
 
@@ -63,8 +63,8 @@
 #define  UDI_HID_GENERIC_SET_FEATURE(f) starling_cb_set_feature(f)
 
 //! Sizes of I/O reports
-#define  UDI_HID_REPORT_IN_SIZE             8
-#define  UDI_HID_REPORT_OUT_SIZE            8
+#define  UDI_HID_REPORT_IN_SIZE             30 //8
+#define  UDI_HID_REPORT_OUT_SIZE            30 //8
 #define  UDI_HID_REPORT_FEATURE_SIZE        4
 
 //! Sizes of I/O endpoints

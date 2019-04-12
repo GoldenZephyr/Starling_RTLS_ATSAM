@@ -444,12 +444,12 @@
       <Value>../src/ASF/common/services/gpio</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
-  <armgcc.compiler.optimization.level>Optimize debugging experience (-Og)</armgcc.compiler.optimization.level>
+  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
   <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
   <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
   <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
   <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
-  <armgcc.compiler.miscellaneous.OtherFlags>-pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500</armgcc.compiler.miscellaneous.OtherFlags>
+  <armgcc.compiler.miscellaneous.OtherFlags>-pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -I ../include</armgcc.compiler.miscellaneous.OtherFlags>
   <armgcc.linker.libraries.Libraries>
     <ListValues>
       <Value>libarm_cortexM4l_math</Value>
@@ -535,6 +535,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="include\" />
     <Folder Include="src\" />
     <Folder Include="src\ASF\" />
     <Folder Include="src\ASF\common\" />
@@ -601,6 +602,30 @@
     <None Include="src\ASF\common\services\gpio\gpio.h">
       <SubType>compile</SubType>
     </None>
+    <Compile Include="include\deca_constants.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\deca_init.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\deca_structs.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\delay_starling.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\ranging.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\spi_comms.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\spi_starling.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\starling_usb_callbacks.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\ASF\common\services\spi\sam_spi\spi_master.c">
       <SubType>compile</SubType>
     </Compile>
@@ -619,13 +644,16 @@
     <None Include="src\ASF\sam\drivers\spi\spi.h">
       <SubType>compile</SubType>
     </None>
-    <Compile Include="src\spi_init_starling.c">
+    <Compile Include="src\deca_init.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\spi_init_starling.h">
+    <Compile Include="src\ranging.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\starling_usb_callbacks.h">
+    <Compile Include="src\ranging_ref.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\spi_starling.c">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\common\services\delay\delay.h">
@@ -1147,6 +1175,9 @@
     <None Include="src\config\conf_usb.h">
       <SubType>compile</SubType>
     </None>
+    <Compile Include="src\spi_utils.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\starling_usb_callbacks.c">
       <SubType>compile</SubType>
     </Compile>

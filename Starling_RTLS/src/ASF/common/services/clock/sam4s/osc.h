@@ -53,12 +53,12 @@ extern "C" {
  * should be defined by the board code, otherwise default value are used.
  */
 #if !defined(BOARD_FREQ_SLCK_XTAL)
-#  warning The board slow clock xtal frequency has not been defined.
+//#  warning The board slow clock xtal frequency has not been defined.
 #  define BOARD_FREQ_SLCK_XTAL      (32768UL)
 #endif
 
 #if !defined(BOARD_FREQ_SLCK_BYPASS)
-#  warning The board slow clock bypass frequency has not been defined.
+//#  warning The board slow clock bypass frequency has not been defined.
 #  define BOARD_FREQ_SLCK_BYPASS    (32768UL)
 #endif
 
@@ -73,7 +73,7 @@ extern "C" {
 #endif
 
 #if !defined(BOARD_OSC_STARTUP_US)
-#  warning The board main clock xtal startup time has not been defined.
+//#  warning The board main clock xtal startup time has not been defined.
 #  define BOARD_OSC_STARTUP_US      (15625UL)
 #endif
 

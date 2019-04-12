@@ -6,7 +6,13 @@ src\ASF\common\services\spi\sam_spi\spi_master.c
 
 src\ASF\sam\drivers\spi\spi.c
 
-src\spi_init_starling.c
+src\deca_init.c
+
+src\ranging.c
+
+src\ranging_ref.c
+
+src\spi_starling.c
 
 src\ASF\common\services\delay\sam\cycle_counter.c
 
@@ -43,6 +49,8 @@ src\ASF\sam\utils\cmsis\sam4s\source\templates\gcc\startup_sam4s.c
 src\ASF\sam\utils\cmsis\sam4s\source\templates\system_sam4s.c
 
 src\ASF\sam\utils\syscalls\gcc\syscalls.c
+
+src\spi_utils.c
 
 src\starling_usb_callbacks.c
 

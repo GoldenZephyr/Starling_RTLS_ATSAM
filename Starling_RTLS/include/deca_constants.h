@@ -64,6 +64,6 @@
 
 #define LIGHT_SPEED 299792458
 #define CLOCK_FREQ ((uint64_t) 128*499200000)
-#define T_REPLY ((uint64_t) CLOCK_FREQ) //1 s
+#define T_REPLY ((uint64_t) CLOCK_FREQ/100) //10 ms
 
 #endif /* DECA_CONSTANTS_H_ */

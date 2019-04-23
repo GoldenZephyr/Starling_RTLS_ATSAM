@@ -15,6 +15,7 @@
 
 #define SPI_PIN_HIGH(x) 	do { ioport_set_pin_level(x,true); asm("nop"); asm("nop"); asm("nop");} while(0);
 #define SPI_PIN_LOW(x) 		do { ioport_set_pin_level(x,false); asm("nop"); asm("nop"); asm("nop");} while(0);
+#define NOP_5				do { asm("nop"); asm("nop"); asm("nop"); asm("nop"); asm("nop");} while(0);
 
 uint8_t spi_write_byte(uint8_t data){
 	uint8_t msg_rcv = 0;
@@ -28,19 +29,33 @@ uint8_t spi_write_byte(uint8_t data){
 	bits[1] = data & 0x40;
 	bits[0] = data & 0x80;
 
-
-
 	uint8_t bit_ix;
 	for(bit_ix = 0; bit_ix < 8; bit_ix++){
 		ioport_set_pin_level(SPI_MOSI,bits[bit_ix]);
-		delay_us(DELAYUS_CLK_HALF_PRD);
+		//delay_us(DELAYUS_CLK_HALF_PRD);
+// 		asm("nop");
+// 		asm("nop");
+// 		asm("nop");
+// 		asm("nop");
+		NOP_5
+		NOP_5
+		NOP_5
+
 		// read MISO on posedge clk
 		msg_rcv = msg_rcv << 1;
 		if (ioport_get_pin_level(SPI_MISO)){
 			msg_rcv += 1;
 		}
 		ioport_set_pin_level(SPI_CLK,true);
-		delay_us(DELAYUS_CLK_HALF_PRD);
+		//delay_us(DELAYUS_CLK_HALF_PRD);
+// 		asm("nop");
+// 		asm("nop");
+// 		asm("nop");
+// 		asm("nop");
+		NOP_5
+		NOP_5
+		NOP_5
+
 		ioport_set_pin_level(SPI_CLK, false);
 	}
 
@@ -52,13 +67,22 @@ void spi_write_msg(const void* recv_buf, const void * const send_buf, uint8_t n_
 	ioport_set_pin_level(SPI_SEL,false);
 	ioport_set_pin_level(SPI_MOSI,true);
 	
-	delay_ms(DELAYUS_SS_TO_MOSI_SET);
+	//delay_ms(DELAYUS_SS_TO_MOSI_SET);
+	NOP_5
+	NOP_5
+	NOP_5
 	for (byte_ix = 0; byte_ix < n_bytes; byte_ix++){
 		msg_recv = spi_write_byte(((uint8_t *) send_buf)[byte_ix]);
 		ioport_set_pin_level(SPI_MOSI,true);
 		((uint8_t *) recv_buf)[byte_ix] = msg_recv;
-		delay_us(DELAYUS_BTW_BYTE);
+		//delay_us(DELAYUS_BTW_BYTE);
+		NOP_5
+		NOP_5
+		NOP_5
 	}
-	delay_us(DELAYUS_CLK_DOWN_TO_SS_UP);
+	//delay_us(DELAYUS_CLK_DOWN_TO_SS_UP);
+	NOP_5
+	NOP_5
+	NOP_5
 	ioport_set_pin_level(SPI_SEL, true);
 }

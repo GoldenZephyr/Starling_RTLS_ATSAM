@@ -10,7 +10,7 @@
 extern volatile bool new_usb_cmd;
 extern volatile uint8_t rp_mod[UDI_HID_REPORT_OUT_SIZE];
 
-bool i_am_sender = false;
+bool i_am_sender = true;
 
 int main(void) {
 
@@ -20,27 +20,6 @@ int main(void) {
 	sysclk_init();
 
 	REG_WDT_MR |= WDT_MR_WDDIS;
-
-	while(1){
-		ioport_set_pin_level(TP1,true);
-		asm("nop");
-		asm("nop");
-		ioport_set_pin_level(TP1,false);
-		asm("nop");
-		asm("nop");
-		ioport_set_pin_level(TP1,true);
-		asm("nop");
-		asm("nop");
-		ioport_set_pin_level(TP1,false);
-		asm("nop");
-		asm("nop");
-		ioport_set_pin_level(TP1,true);
-		asm("nop");
-		asm("nop");
-		ioport_set_pin_level(TP1,false);
-		asm("nop");
-		asm("nop");
-	}
 
 	// For USB callbacks
  	if (do_usb) {
@@ -56,17 +35,17 @@ int main(void) {
 
 	// Startup sequence
 	ioport_toggle_pin_level(LEDG);
-	delay_ms(1000);
+	delay_ms(250);
 	ioport_toggle_pin_level(LEDR);
-	delay_ms(1000);
+	delay_ms(250);
 	ioport_toggle_pin_level(LEDY);
-	delay_ms(1000);
+	delay_ms(250);
 	ioport_toggle_pin_level(LEDY);
-	delay_ms(1000);
+	delay_ms(250);
 	ioport_toggle_pin_level(LEDR);
-	delay_ms(1000);
+	delay_ms(250);
 	ioport_toggle_pin_level(LEDG);
-	delay_ms(2000);
+	delay_ms(250);
 
 // 	int ix = 0;
 // 	while(1){
@@ -87,7 +66,7 @@ int main(void) {
 		ioport_set_pin_level(LEDR, false);
 		delay_ms(1000);
 		ioport_set_pin_level(LEDR, true);
-		}else{
+	}else{
 		ioport_set_pin_level(LEDG, false);
 		delay_ms(1000);
 		ioport_set_pin_level(LEDG, true);
@@ -95,9 +74,9 @@ int main(void) {
 
 	while(1) {
 
-		ioport_set_pin_level(LEDR, false);
-		delay_ms(1000);
-		ioport_set_pin_level(LEDR, true);
+// 		ioport_set_pin_level(LEDR, false);
+// 		delay_ms(250);
+// 		ioport_set_pin_level(LEDR, true);
 
 		info.timestamp_rx_1 = 0;
 		info.timestamp_tx_1 = 0;
@@ -122,8 +101,9 @@ int main(void) {
 			udi_hid_generic_send_report_in( (uint8_t *) &info);
 		}
 
-		ioport_set_pin_level(LEDY, false);
-		delay_ms(1000);
-		ioport_set_pin_level(LEDY, true);
+		delay_ms(20);
+		//ioport_set_pin_level(LEDG, false);
+		//delay_ms(250);
+		//ioport_set_pin_level(LEDG, true);
 	}
 }
